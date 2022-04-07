@@ -3,7 +3,7 @@ import time, requests, json
 
 webhook_endpoint = '{your_webhook_endpoint_link}'
 
-# connect to Binance via
+# connect to Binance
 exchange = ccxt.binance({
     'apiKey': "",
     'secret': "",
@@ -18,7 +18,7 @@ def current_price(ticker): #BTCUSDT
     current_price = fetch_ticker['close']
     return current_price
 
-def send_message(content, webhook): #send message to webhook
+def send_message(content, webhook):
     message = {"text": content}
     message_json = json.dumps(message)
     return requests.post(webhook, message_json)
@@ -34,4 +34,4 @@ while True:
     else:
         time.sleep(2)
         text = 'Bitcoin price at {0} is ${1}'.format(t1_format, current_price('BTCUSDT'))
-        send_message(text,webhook_endpoint)
+        send_message(text,webhook_endpoint) #send message to slack webhook
